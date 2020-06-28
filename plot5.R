@@ -7,8 +7,8 @@ NEI <- data.table::as.data.table(x = readRDS("summarySCC_PM25.rds"))
 SCC <- data.table::as.data.table(x = readRDS("Source_Classification_Code.rds"))
 
 # Gather the subset of the NEI data which corresponds to vehicles
-vehiclesSCC <- SCC[grepl("vehicle", SCC$SCC.Level.Two, ignore.case=TRUE)
-                   , SCC]
+condition <- grepl("vehicle", SCC[, SCC.Level.Two], ignore.case=TRUE)
+vehiclesSCC <- SCC[condition, SCC]
 vehiclesNEI <- NEI[NEI[, SCC] %in% vehiclesSCC,]
 
 # Subset the vehicles NEI data to Baltimore's fip
